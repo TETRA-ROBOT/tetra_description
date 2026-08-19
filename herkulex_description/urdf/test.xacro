@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+
+<robot name="herkulex_pantilt" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <!-- Include all component files -->
+  <xacro:include filename="$(find herkulex_description)/urdf/materials.urdf.xacro" />
+  <!-- Define a number of dimensions using properties -->
+  <xacro:property name="PI" value="3.1415926" />
+
+
+  <xacro:macro name="pen_tilt_bottom" params="name color">
+    <link name="pen_tilt_bottom">
+    </link>
+  </xacro:macro>
+
+  <joint name="pen_module_joint" type="revolute">
+    <parent link="pen_tilt_bottom"/>
+    <child link="pen_module"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="30" lower="-3.14159" upper="3.14159" velocity="1.571"/>
+  </joint>
+
+  <link name="pen_module">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://herkulex_description/meshes//mh_assy_pan.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://herkulex_description/meshes//mh_assy_pan.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      	<material name="grey"/>
+    </visual>
+  </link>
+
+  <link name="pen_tilt_bracket">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://herkulex_description/meshes//mh_assy_tilt.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://herkulex_description/meshes//mh_assy_tilt.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="grey"/>
+    </visual>
+  </link>
+  
+  <joint name="pen_tilt_bracket_joint" type="revolute">
+    <parent link="pen_module"/>
+    <child link="pen_tilt_bracket"/>
+    <origin xyz="0 0 0.045" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit effort="30" lower="-3.14159" upper="0.0872665" velocity="1.571"/>
+  </joint>
+
+
+
+  <link name="mh_assy_camera">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://herkulex_description/meshes//mh_assy_camera.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://herkulex_description/meshes//mh_assy_camera.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="darkgrey"/>
+    </visual>
+  </link>
+  
+  <joint name="mh_assy_camera_joint" type="fixed">
+    <parent link="pen_tilt_bracket"/>
+    <child link="mh_assy_camera"/>
+     <origin xyz="0.02 0 0.066" rpy="0 0 0"/>
+  </joint>
+</robot>
+

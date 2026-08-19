@@ -1,0 +1,239 @@
+<?xml version="1.0"?>
+
+<robot name="tetraDS" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <!-- Define a number of dimensions using properties -->
+  <xacro:property name="laser_offset_x" value="0.30905" />
+  <xacro:property name="laser_offset_y" value="0.23105" />
+  <xacro:property name="laser_offset_z" value="0.18246" />
+  <xacro:property name="bumper_offset_x" value="0.4" />
+  <xacro:property name="bumper_offset_y" value="0" />
+  <xacro:property name="bumper_offset_z" value="-0.02" />
+  <xacro:property name="PI" value="3.1415926" />
+
+  <xacro:macro name="cylinder_inertia" params="m r h">
+    <inertia ixx="${m*(3*r*r+h*h)/12}" ixy="0" ixz="0" iyy="${m*(3*r*r+h*h)/12}" iyz="0" izz="${m*r*r/2}" />
+  </xacro:macro>
+
+  <!-- Include all component files -->
+  <xacro:include filename="$(find tetra_description)/urdf/tetraDS/materials.urdf.xacro" />
+  <xacro:include filename="$(find tetra_description)/urdf/tetraDS/base.urdf.xacro" />
+  <xacro:include filename="$(find herkulex_description)/urdf/test.xacro" />
+   
+  <!-- Add the base and wheels-->
+  <xacro:base_wheels name="base" color="Black"/>
+  <xacro:pen_tilt_bottom name="pen_tilt_bottom" color="Black"/> 
+  
+  <joint name="laser_flag" type="fixed">
+    <origin xyz="${laser_offset_x} ${laser_offset_y} ${laser_offset_z}" rpy="0 0 ${PI*0.25}" />
+    <parent link="base_link"/>
+    <child link="laser" />
+  </joint>
+  <link name="laser">
+  </link>
+
+  <joint name="base_link_to_laser_link2" type="fixed">
+    <origin xyz="${-laser_offset_x} ${-laser_offset_y} ${laser_offset_z}" rpy="0 0 ${PI*-0.75}" />
+    <parent link="base_link"/>
+    <child link="laser_link2" />
+  </joint>
+  <link name="laser_link2">
+  </link>
+  
+  <joint name="base_link_to_laser_merge" type="fixed">
+    <origin xyz="0 0 ${laser_offset_z}" rpy="0 0 0" />
+    <parent link="base_link"/>
+    <child link="laser_merge" />
+  </joint>
+  <link name="laser_merge">
+  </link>
+
+  <joint name="base_link_to_imu_link" type="fixed">
+    <origin xyz="0 0 0.120" rpy="0 0 0" />
+    <parent link="base_link"/>
+    <child link="imu_link" />
+  </joint>
+  <link name="imu_link">
+  </link>
+
+  <link name="camera">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0.01 0.01 0.01" />
+        </geometry>
+        <material name="grey" />
+      </visual>
+  </link>
+
+  <joint name="camera" type="fixed">
+    <origin xyz="0.3657 0.02 0.1183" rpy="1.5708 3.14159 1.5708"/> <!--"0.135 0.0 0.181" -->
+    <parent link="base_link"/>
+    <child link="camera" />
+  </joint>  
+
+
+  <joint name="Front_bumper" type="fixed">
+    <origin xyz="${bumper_offset_x} ${bumper_offset_y} ${bumper_offset_z}" rpy="0 0 0" />
+    <parent link="base_link"/>
+    <child link="Front_bumper" />
+  </joint>
+  <link name="Front_bumper">
+  </link>
+
+  <joint name="Rear_bumper" type="fixed">
+    <origin xyz="${-bumper_offset_x} ${bumper_offset_y} ${bumper_offset_z}" rpy="0 0 ${PI}" />
+    <parent link="base_link"/>
+    <child link="Rear_bumper" />
+  </joint>
+  <link name="Rear_bumper">
+  </link>
+
+  <joint name="camera1_link" type="fixed">
+    <origin xyz="0.3657 0.02 0.1183" rpy="0 0 0" />
+    <parent link="base_link"/>
+    <child link="camera1_link" />
+  </joint>
+  <link name="camera1_link">
+  </link>
+
+  <!-- 리프트 링크 -->
+  <link name="control_box">
+    <visual>
+      <geometry>
+        <mesh filename="package://tetra_description/meshes/mh_assy_control_box.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://tetra_description/meshes/mh_assy_control_box.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- 리프트 조인트 (상하 이동) -->
+  <joint name="control_box_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="control_box"/>
+    <origin xyz="0.0 0.0 0.3" rpy="0 0 0"/>
+  </joint>
+
+  <!-- 리프트 링크 -->
+  <link name="lift_link">
+    <visual>
+      <geometry>
+        <mesh filename="package://tetra_description/meshes/mh_assy_lift1.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://tetra_description/meshes/mh_assy_lift1.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- 리프트 조인트 (상하 이동) -->
+  <joint name="lift_joint" type="fixed">
+    <parent link="control_box"/>
+    <child link="lift_link"/>
+    <origin xyz="-0.2 0 0.1" rpy="0 0 0"/>
+  </joint>
+
+  <!-- 리프트 링크 -->
+  <link name="lift_link2">
+    <visual>
+      <geometry>
+        <mesh filename="package://tetra_description/meshes/mh_assy_lift2.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+      <material name="grey"/>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://tetra_description/meshes/mh_assy_lift2.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- 리프트 조인트 (상하 이동) -->
+  <joint name="lift_joint2" type="prismatic">
+    <parent link="lift_link"/>
+    <child link="lift_link2"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="0" upper="0.27" effort="1000" velocity="1.0"/>
+  </joint>
+
+  <!-- 리프트 링크 -->
+  <link name="lift_link3">
+    <visual>
+      <geometry>
+        <mesh filename="package://tetra_description/meshes/mh_assy_lift3.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+      <material name="grey"/>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://tetra_description/meshes/mh_assy_lift3.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- 리프트 조인트 (상하 이동) -->
+  <joint name="lift_joint3" type="prismatic">
+    <parent link="lift_link2"/>
+    <child link="lift_link3"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="0" upper="0.27" effort="1000" velocity="1.0"/>
+  </joint>
+
+  <link name="torso">
+    <visual>
+      <geometry>
+        <mesh filename="package://tetra_description/meshes/mh_assy_torso.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+      <material name="red"/>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://tetra_description/meshes/mh_assy_torso.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="torso_joint" type="fixed">
+    <origin xyz="0.0 0.0 0.4" rpy="0 0 0" />
+    <parent link="lift_link3"/>
+    <child link="torso" />
+  </joint>
+
+  <!-- define joint -->
+  <joint name="pen_tilt_joint" type="fixed">
+    <parent link="torso"/>
+    <child link="pen_tilt_bottom"/>
+    <origin xyz="0 0 0.1" rpy="0 0 0"/>
+  </joint>
+
+
+  <link name="cable">
+    <visual>
+      <geometry>
+        <mesh filename="package://tetra_description/meshes/mh_assy_cable.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://tetra_description/meshes/mh_assy_cable.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="cable_joint" type="fixed">
+    <origin xyz="-0.1 0.0 -0.05" rpy="0 0 0" />
+    <parent link="torso"/>
+    <child link="cable" />
+  </joint>
+</robot>
