@@ -11,23 +11,23 @@
   </xacro:if>
 
   <xacro:if value="${model == 'h' or model == 'ds' or model == 'tetraDS'}">
-    <xacro:include filename="$(find tetra_description)/urdf/tetraDS/tetraDS.xacro" />
+    <xacro:include filename="$(find tetra_description)/urdf/tetraDS/tetra.xacro" />
   </xacro:if>
 
   <xacro:if value="${model == 'edu'}">
-    <xacro:include filename="$(find tetra_description)/urdf/tetra_edu/tetra_edu.xacro" />
+    <xacro:include filename="$(find tetra_description)/urdf/tetra_edu/tetra.xacro" />
   </xacro:if>
 
   <xacro:if value="${model == 'mh'}">
-    <xacro:include filename="$(find tetra_description)/urdf/tetra_mh/tetra_mh.xacro" />
+    <xacro:include filename="$(find tetra_description)/urdf/tetra_mh/tetra.xacro" />
   </xacro:if>
 
   <xacro:if value="${model == 's'}">
-    <xacro:include filename="$(find tetra_description)/urdf/tetra_s/tetra_s.xacro" />
+    <xacro:include filename="$(find tetra_description)/urdf/tetra_s/tetra.xacro" />
   </xacro:if>
 
   <xacro:if value="${model == 'sm'}">
-    <xacro:include filename="$(find tetra_description)/urdf/tetra_sm/tetra_sm.xacro" />
+    <xacro:include filename="$(find tetra_description)/urdf/tetra_sm/tetra.xacro" />
   </xacro:if>
 
 </robot>
