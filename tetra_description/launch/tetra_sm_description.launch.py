@@ -1,39 +1,25 @@
-import os
-from os import environ
-
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument, Shutdown
-from launch.substitutions import PathJoinSubstitution, Command, LaunchConfiguration
+from launch.actions import IncludeLaunchDescription, DeclareLaunchArgument
+from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch_ros.substitutions import FindPackageShare
-from launch_ros.actions import Node
-
+from launch.substitutions import PathJoinSubstitution, LaunchConfiguration
 
 def generate_launch_description():
-    ld = LaunchDescription()
+    use_sim_time_arg = DeclareLaunchArgument('use_sim_time', default_value="true")
 
-    use_sim_time = DeclareLaunchArgument('use_sim_time', default_value="true")
-
-    rsp_node = Node(
-        package='robot_state_publisher',
-        executable='robot_state_publisher',
-        name='robot_state_publisher',
-        output='screen',
-        parameters=[{
-            'use_sim_time': LaunchConfiguration('use_sim_time'),
-            'robot_description':
-                Command([
-                    'xacro ',
-                    PathJoinSubstitution([
-                        FindPackageShare('tetra_description'),
-                        'urdf',
-                        'tetra_sm',
-                        'tetra.xacro',
-                    ]),
-                ]),
-        }]
-    )
-
-    ld.add_action(use_sim_time)
-    ld.add_action(rsp_node)
-
-    return ld
+    return LaunchDescription([
+        use_sim_time_arg,
+        IncludeLaunchDescription(
+            PythonLaunchDescriptionSource([
+                PathJoinSubstitution([
+                    FindPackageShare('tetra_description'),
+                    'launch',
+                    'tetra_description.launch.py'
+                ])
+            ]),
+            launch_arguments={
+                'robot_model': 'sm',
+                'use_sim_time': LaunchConfiguration('use_sim_time')
+            }.items()
+        )
+    ])

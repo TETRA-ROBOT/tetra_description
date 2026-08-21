@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="tetra_robot">
+
+  <!-- Robot Model Argument: m, h (or ds), edu, mh, s, sm -->
+  <xacro:arg name="robot_model" default="m"/>
+  <xacro:property name="model" value="$(arg robot_model)"/>
+
+  <!-- Include Model Specific URDF -->
+  <xacro:if value="${model == 'm'}">
+    <xacro:include filename="$(find tetra_description)/urdf/tetra.xacro" />
+  </xacro:if>
+
+  <xacro:if value="${model == 'h' or model == 'ds' or model == 'tetraDS'}">
+    <xacro:include filename="$(find tetra_description)/urdf/tetraDS/tetraDS.xacro" />
+  </xacro:if>
+
+  <xacro:if value="${model == 'edu'}">
+    <xacro:include filename="$(find tetra_description)/urdf/tetra_edu/tetra_edu.xacro" />
+  </xacro:if>
+
+  <xacro:if value="${model == 'mh'}">
+    <xacro:include filename="$(find tetra_description)/urdf/tetra_mh/tetra_mh.xacro" />
+  </xacro:if>
+
+  <xacro:if value="${model == 's'}">
+    <xacro:include filename="$(find tetra_description)/urdf/tetra_s/tetra_s.xacro" />
+  </xacro:if>
+
+  <xacro:if value="${model == 'sm'}">
+    <xacro:include filename="$(find tetra_description)/urdf/tetra_sm/tetra_sm.xacro" />
+  </xacro:if>
+
+</robot>
