@@ -81,7 +81,7 @@
       </visual>
   </link>
 
-  <joint name="camera" type="fixed">
+  <joint name="camera_joint" type="fixed">
     <origin xyz="0.135 0.0 0.181" rpy="1.5708 3.14159 1.5708"/>
     <parent link="base_link"/>
     <child link="camera" />
@@ -97,7 +97,7 @@
       </visual>
   </link>
 
-  <joint name="front_bumper" type="fixed">
+  <joint name="front_bumper_joint" type="fixed">
     <origin xyz="0.15125 0.0 -0.05" rpy="0 0 0" />
     <parent link="base_link"/>
     <child link="front_bumper" />
@@ -113,7 +113,7 @@
       </visual>
   </link>
 
-  <joint name="camera1_link" type="fixed">
+  <joint name="camera1_link_joint" type="fixed">
     <origin xyz="0.1347 0.0 0.1344" rpy="0 0 0" />
     <parent link="base_link"/>
     <child link="camera1_link" />

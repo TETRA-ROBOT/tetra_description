@@ -19,14 +19,14 @@
   </joint>
   <link name="lidar_link" />
 
-  <joint name="camera" type="fixed">
+  <joint name="camera_joint" type="fixed">
     <origin xyz="0.109 0.03 0.125" rpy="0 0 0"/>
     <parent link="base_link"/>
     <child link="camera_link" />
   </joint>  
   <link name="camera_link" />
 
-  <joint name="front_bumper" type="fixed">
+  <joint name="front_bumper_joint" type="fixed">
     <origin xyz="0.142 0.0 -0.025" rpy="0 0 0" />
     <parent link="base_link"/>
     <child link="front_bumper_link" />
