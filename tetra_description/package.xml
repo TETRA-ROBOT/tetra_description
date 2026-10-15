@@ -13,6 +13,8 @@
   <depend>robot_state_publisher</depend>
   <depend>joint_state_publisher</depend>
   <depend>joint_state_publisher_gui</depend>
+  <!-- tetra_mh/tetra.xacro가 팬틸트 모델을 $(find herkulex_description)로 include -->
+  <exec_depend>herkulex_description</exec_depend>
 
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>
