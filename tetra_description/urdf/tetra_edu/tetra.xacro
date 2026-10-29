@@ -6,8 +6,9 @@
   <xacro:property name="PI" value="3.1415926" />
 
   <!-- Include all component files -->
-  <xacro:include filename="$(find tetra_description)/urdf/materials.urdf.xacro" />
-  <xacro:include filename="$(find tetra_description)/urdf/base.urdf.xacro" />
+  <!-- EDU 전용 base 를 읽는다. 공용 urdf/base.urdf.xacro(M)를 읽으면 바퀴 간격(±0.22)·base_link 높이(0.1005)·외곽선이 M 값이 된다 -->
+  <xacro:include filename="$(find tetra_description)/urdf/tetra_edu/materials.urdf.xacro" />
+  <xacro:include filename="$(find tetra_description)/urdf/tetra_edu/base.urdf.xacro" />
   
   <!-- Add the base and wheels -->
   <base name="base" color="black"/>
@@ -19,12 +20,15 @@
   </joint>
   <link name="lidar_link" />
 
+  <!-- RealSense 드라이버(camera_name 기본값 camera1)가 camera1_link 아래로 광학 프레임 TF 를 붙인다.
+       camera_link 로 두면 카메라·AprilTag 프레임이 base_link 와 이어지지 않는다.
+       pitch 0.019 rad(약 1.1° 아래): 실기 depth 로 본 바닥이 1 m 당 1.9 cm 올라가 보여 장착 기울기를 반영했다 -->
   <joint name="camera_joint" type="fixed">
-    <origin xyz="0.109 0.03 0.125" rpy="0 0 0"/>
+    <origin xyz="0.109 0.03 0.125" rpy="0 0.019 0"/>
     <parent link="base_link"/>
-    <child link="camera_link" />
+    <child link="camera1_link" />
   </joint>  
-  <link name="camera_link" />
+  <link name="camera1_link" />
 
   <joint name="front_bumper_joint" type="fixed">
     <origin xyz="0.142 0.0 -0.025" rpy="0 0 0" />
