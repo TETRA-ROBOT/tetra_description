@@ -123,8 +123,12 @@
       </visual>
   </link>
 
+  <!-- RealSense 드라이버(camera_name camera1)는 camera1_link 를 depth 원점(왼쪽 IR 센서)으로 보고
+       그 아래 컬러 센서 오프셋(D435 는 +0.015 m)을 TF 로 붙인다. 카메라 본체는 로봇 가운데지만
+       D435 의 depth 원점은 본체 중심에서 왼쪽 0.0175 m 라 y 를 0.0175 로 둔다 (컬러 센서는 왼쪽 0.0325 m).
+       y 0 이면 도킹이 태그 중심보다 1.75 cm 옆으로 맞춰진다. 다른 모델(D455 0.0475)이면 이 값을 바꾼다 -->
   <joint name="camera1_link_joint" type="fixed">
-    <origin xyz="0.1097 0.0 0.1344" rpy="0 0 0" />
+    <origin xyz="0.1097 0.0175 0.1344" rpy="0 0 0" />
     <parent link="base_link"/>
     <child link="camera1_link" />
   </joint>
