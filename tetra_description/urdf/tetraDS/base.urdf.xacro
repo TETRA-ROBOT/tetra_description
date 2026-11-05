@@ -154,7 +154,7 @@
 
   <link name="tim571_f_lidar">
     <visual>
-      <origin xyz="0.38013 -0.35035 0.10" rpy="1.5708 0 -1.5708" /> <!-- an inaccurate figure because it used only for model display -->
+      <origin xyz="0.38013 -0.38013 0.10" rpy="1.5708 0 -1.5708" /> <!-- an inaccurate figure because it used only for model display -->
       <geometry>
         <mesh filename="package://tetra_description/meshes/tim571.STL" scale="0.001 0.001 0.001" />
       </geometry>
@@ -171,7 +171,7 @@
 
   <link name="tim571_b_lidar">
     <visual>
-      <origin xyz="-0.38013 0.35035 0.10" rpy="1.5708 0 1.5708" /> <!-- an inaccurate figure because it used only for model display -->
+      <origin xyz="-0.38013 0.38013 0.10" rpy="1.5708 0 1.5708" /> <!-- an inaccurate figure because it used only for model display -->
       <geometry>
         <mesh filename="package://tetra_description/meshes/tim571.STL" scale="0.001 0.001 0.001" />
       </geometry>
