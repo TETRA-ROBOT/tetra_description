@@ -122,6 +122,31 @@
     <child link="camera1_link" />
   </joint>
 
+  <!-- Rear ultrasonic sensors of older M robots (no rear Cyglidar).
+       tetra_power_driver publishes range_points_DL/RL/RR/DR in these frames when m_bUltrasonic_option is on,
+       and navigation_m.yaml marks them in the local costmap. Offsets come from the legacy TETRA-DS URDF. -->
+  <xacro:macro name="sonar_frame" params="name xyz rpy">
+    <link name="${name}">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0.01 0.01 0.01" />
+        </geometry>
+        <material name="grey" />
+      </visual>
+    </link>
+    <joint name="base_link_to_${name}" type="fixed">
+      <origin xyz="${xyz}" rpy="${rpy}" />
+      <parent link="base_link"/>
+      <child link="${name}" />
+    </joint>
+  </xacro:macro>
+
+  <xacro:sonar_frame name="sonar_DL" xyz="-0.34654 0.245 -0.02517" rpy="0 0 1.5708" />
+  <xacro:sonar_frame name="sonar_RL" xyz="-0.3902 0.18754 0.197" rpy="0 0 3.14159" />
+  <xacro:sonar_frame name="sonar_RR" xyz="-0.3902 -0.18754 0.197" rpy="0 0 3.14159" />
+  <xacro:sonar_frame name="sonar_DR" xyz="-0.34654 -0.245 -0.02517" rpy="0 0 -1.5708" />
+
 
 </robot>
 
