@@ -142,10 +142,15 @@
     </joint>
   </xacro:macro>
 
-  <xacro:sonar_frame name="sonar_DL" xyz="-0.34654 0.245 -0.02517" rpy="0 0 1.5708" />
-  <xacro:sonar_frame name="sonar_RL" xyz="-0.3902 0.18754 0.197" rpy="0 0 3.14159" />
-  <xacro:sonar_frame name="sonar_RR" xyz="-0.3902 -0.18754 0.197" rpy="0 0 3.14159" />
-  <xacro:sonar_frame name="sonar_DR" xyz="-0.34654 -0.245 -0.02517" rpy="0 0 -1.5708" />
+  <!-- 이 파일은 EDU·H·MH·S·SM 도 읽는다. 다른 모델 전원 보드가 초음파를 내면 M 위치로 잘못 찍히므로 M 브링업만 켠다
+       (tetra_bringup_m.launch.py, tetra_3d_bringup.launch.py 가 m_rear_sonar:=true) -->
+  <xacro:arg name="m_rear_sonar" default="false"/>
+  <xacro:if value="$(arg m_rear_sonar)">
+    <xacro:sonar_frame name="sonar_DL" xyz="-0.34654 0.245 -0.02517" rpy="0 0 1.5708" />
+    <xacro:sonar_frame name="sonar_RL" xyz="-0.3902 0.18754 0.197" rpy="0 0 3.14159" />
+    <xacro:sonar_frame name="sonar_RR" xyz="-0.3902 -0.18754 0.197" rpy="0 0 3.14159" />
+    <xacro:sonar_frame name="sonar_DR" xyz="-0.34654 -0.245 -0.02517" rpy="0 0 -1.5708" />
+  </xacro:if>
 
 
 </robot>

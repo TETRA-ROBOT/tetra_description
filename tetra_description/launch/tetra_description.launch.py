@@ -27,6 +27,8 @@ def generate_launch_description():
                 ]),
                 ' robot_model:=',
                 LaunchConfiguration('robot_model'),
+                # M 후면 초음파 프레임. tetra.xacro 는 M 일 때만 들어오므로 다른 모델에는 영향이 없다
+                ' m_rear_sonar:=true',
             ]),
         }]
     )
