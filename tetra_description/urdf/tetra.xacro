@@ -123,7 +123,7 @@
   </joint>
 
   <!-- Rear ultrasonic sensors of older M robots (no rear Cyglidar).
-       tetra_power_driver publishes range_points_DL/RL/RR/DR in these frames when m_bUltrasonic_option is on,
+       tetra_power_driver publishes range_points_dl/rl/rr/dr in these frames when ultrasonic_option is on,
        and navigation_m.yaml marks them in the local costmap. Offsets come from the legacy TETRA-DS URDF. -->
   <xacro:macro name="sonar_frame" params="name xyz rpy">
     <link name="${name}">
