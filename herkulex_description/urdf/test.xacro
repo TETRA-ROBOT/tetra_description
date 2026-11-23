@@ -5,6 +5,10 @@
   <xacro:include filename="$(find herkulex_description)/urdf/materials.urdf.xacro" />
   <!-- Define a number of dimensions using properties -->
   <xacro:property name="PI" value="3.1415926" />
+  <!-- Autonics RGBD 카메라(mh_assy_camera) 장착 위치. pantilt = 팬틸트 브래킷 위(예전 기본),
+       gripper = 로봇팔 끝(rbpodo_moveit_config test.urdf.xacro 가 link6 에 붙인다), none = 붙이지 않음.
+       로봇팔과 합친 URDF 는 그쪽에서 먼저 선언한 기본값(gripper)이 이긴다 (xacro:arg 는 처음 선언한 기본값을 쓴다) -->
+  <xacro:arg name="autonics_camera_mount" default="pantilt"/>
 
 
   <xacro:macro name="pen_tilt_bottom" params="name color">
@@ -62,26 +66,42 @@
 
 
 
-  <link name="mh_assy_camera">
-    <collision>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-      <geometry>
-        <mesh filename="package://herkulex_description/meshes//mh_assy_camera.stl" scale="0.001 0.001 0.001"/>
-      </geometry>
-    </collision>
-    <visual>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-      <geometry>
-        <mesh filename="package://herkulex_description/meshes//mh_assy_camera.stl" scale="0.001 0.001 0.001"/>
-      </geometry>
-      <material name="darkgrey"/>
-    </visual>
-  </link>
+  <xacro:unless value="${'$(arg autonics_camera_mount)' == 'none'}">
+    <link name="mh_assy_camera">
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://herkulex_description/meshes//mh_assy_camera.stl" scale="0.001 0.001 0.001"/>
+        </geometry>
+      </collision>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://herkulex_description/meshes//mh_assy_camera.stl" scale="0.001 0.001 0.001"/>
+        </geometry>
+        <material name="darkgrey"/>
+      </visual>
+    </link>
+  </xacro:unless>
   
-  <joint name="mh_assy_camera_joint" type="fixed">
-    <parent link="pen_tilt_bracket"/>
-    <child link="mh_assy_camera"/>
-     <origin xyz="0.02 0 0.066" rpy="0 0 0"/>
-  </joint>
+  <xacro:if value="${'$(arg autonics_camera_mount)' == 'pantilt'}">
+    <joint name="mh_assy_camera_joint" type="fixed">
+      <parent link="pen_tilt_bracket"/>
+      <child link="mh_assy_camera"/>
+      <origin xyz="0.02 0 0.066" rpy="0 0 0"/>
+    </joint>
+  </xacro:if>
+
+  <!-- Autonics 드라이버(udp_image_node)가 camera_link -> camera_color_frame·camera_depth_frame 을 static TF 로 낸다.
+       예전에는 camera_link 의 부모가 없어 영상 좌표를 로봇 좌표로 바꿀 수 없었다. 카메라 몸체에 잇는다
+       (몸체 메시 원점 = 카메라 기준점으로 본다. 렌즈 위치를 실측하면 origin 을 고친다) -->
+  <xacro:unless value="${'$(arg autonics_camera_mount)' == 'none'}">
+    <joint name="autonics_camera_link_joint" type="fixed">
+      <parent link="mh_assy_camera"/>
+      <child link="camera_link"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+    <link name="camera_link"/>
+  </xacro:unless>
 </robot>
 
