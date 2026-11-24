@@ -133,7 +133,7 @@
     <child link="camera1_link" />
   </joint>
   
-<!--
+  <!-- Livox MID360 (tetra_3d_bringup_sm, frame_id livox_frame). S 와 같은 자리에 둔다 (tetra_s/tetra.xacro). 실측하면 고친다 -->
    <link name="livox_frame">
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
@@ -149,7 +149,6 @@
     <parent link="base_link"/>
     <child link="livox_frame" />
   </joint>  
--->
 
 <!--
  <link name="base_upperlink">
