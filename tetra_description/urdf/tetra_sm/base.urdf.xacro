@@ -10,6 +10,10 @@
   <xacro:property name="wheel_offset_x" value="0.0" />
   <xacro:property name="wheel_offset_y" value="0.1975" /> <!--0.220-->
   <xacro:property name="wheel_offset_z" value="-0.100" />
+  <!-- 메쉬를 바닥에 닿게 내리는 양. base_joint 는 0.1 m 인데 이 모델의 바퀴 반지름은 0.075 m 라 몸체·바퀴가 2.5 cm 떠 보였다.
+       base_joint 를 바꾸면 base_link 기준 센서 높이(3D 라이다 높이 필터 등)가 같이 바뀌므로, TF 는 그대로 두고 메쉬(visual·collision)만 내린다.
+       센서 높이를 실측해 base_joint 를 바로잡을 때는 이 값을 0 으로 하고 센서 joint z 를 함께 고친다. -->
+  <xacro:property name="floor_drop" value="0.025" />
   <xacro:property name="PI" value="3.1415926" />
 
   <xacro:macro name="cylinder_inertia" params="m r h">
@@ -38,7 +42,7 @@
   <!-- The base xacro macro -->
    <link name="base_link">
     <visual>
-    <origin xyz=" 0 0 0 " rpy="0 0 0" />
+    <origin xyz="0 0 ${-floor_drop}" rpy="0 0 0" />
       <geometry>
         <mesh
           filename="package://tetra_description/meshes/tetra_dsv_sm.stl" scale="0.001 0.001 0.001" />

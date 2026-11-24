@@ -17,8 +17,8 @@
   </xacro:macro>
 
    <!-- Include all component files -->
-   <xacro:include filename="$(find tetra_description)/urdf/materials.urdf.xacro" />
-   <xacro:include filename="$(find tetra_description)/urdf/base.urdf.xacro" />
+   <xacro:include filename="$(find tetra_description)/urdf/tetra_sm/materials.urdf.xacro" />
+   <xacro:include filename="$(find tetra_description)/urdf/tetra_sm/base.urdf.xacro" />
    
    <!-- Add the base and wheels -->
    <base name="base" color="black"/>

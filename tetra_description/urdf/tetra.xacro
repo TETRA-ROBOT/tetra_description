@@ -24,11 +24,12 @@
    <base name="base" color="black"/>
  
 
+  <!-- M 앞 라이다 SICK TiM571 (sick_tim_5xx 드라이버). 메쉬 원점이 광학 중심이라 laser 프레임에 그대로 붙인다 (meshes/sick_tim_5xx.NOTICE.md) -->
   <link name="laser">
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <box size="0.01 0.01 0.01" />
+          <mesh filename="package://tetra_description/meshes/sick_tim_5xx.stl" scale="1 1 1" />
         </geometry>
         <material name="grey" />
       </visual>
