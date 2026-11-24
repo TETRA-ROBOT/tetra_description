@@ -17,5 +17,5 @@ TETRA 로봇과 Herkulex 서보 장치의 URDF(xacro)·메쉬·RViz 설정 패�
 3. 단위는 URDF 표준(m, rad)입니다.
 4. `urdf/tetra.xacro` 는 거의 모든 모델 브링업이 읽습니다. 한 모델에만 있는 부품은 xacro 인자로 막아 두고 그 모델 브링업만 켭니다 (예: M 후면 초음파 `m_rear_sonar:=true`).
 5. **MH + 로봇팔**: `urdf/tetra_mh/tetra_rb10.xacro` = MH 몸체 + Rainbow RB10(`rbpodo_description`, 이 레포 밖) + 몸통 장착(rb_joint).
-   Autonics 카메라(`mh_assy_camera`)는 xacro 인자 `autonics_camera_mount`(gripper: link6 위 `autonics_gripper_xyz/rpy`, pantilt: 팬틸트 브래킷, none)로 옮긴다.
+   Autonics 카메라(`mh_assy_camera`)는 xacro 인자 `autonics_camera_mount`(gripper: 팔 끝단 원 `tcp` 기준 `autonics_gripper_xyz/rpy`, pantilt: 팬틸트 브래킷, none)로 옮긴다.
    `herkulex_description/urdf/test.xacro` 가 같은 인자를 pantilt 기본으로 선언하고, 드라이버가 내는 `camera_link` 를 카메라 몸체에 잇는다.
