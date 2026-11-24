@@ -22,7 +22,7 @@ TETRA 로봇과 Herkulex 서보 장치의 URDF(xacro)·메쉬·RViz 설정 패�
 6. **모델마다 자기 폴더의 `base.urdf.xacro` 를 읽는다.** 공용 `urdf/base.urdf.xacro` 는 M 몸체다. 2026-08 모델별 패키지를 합칠 때 S·SM 이 공용(M) base 를 읽게 남아
    S·SM 화면에 M 몸체가 보였고, S 2D·3D, SM 3D 브링업은 `robot_state_publisher_node()` 를 인자 없이 불러 M URDF 전체(라이다·카메라 위치까지 M 값)를 냈다. 지금은 `xacro_folder='tetra_s'|'tetra_sm'`.
    자기 base 의 캐스터 이름은 `l_rear_caster_*` 다 (M 은 `rear_caster_*`, RViz 표시 목록에만 쓰임). `tetra_3d_bringup_mh` 도 같은 문제였고 지금은 `tetra_mh` 를 읽는다.
-   SM 의 `livox_frame`(MID360, SM 3D 브링업)은 실측값이 없어 S 와 같은 자리다. MH 는 3D 브링업이 MID360 을 띄우지만 `livox_frame` 이 아직 없다.
+   SM 의 `livox_frame`(MID360, SM 3D 브링업)은 실측값이 없어 S 와 같은 자리다. MH 의 `livox_frame` 도 실측값이 없어 S 와 같은 자리다.
 7. **바닥 높이 `floor_drop`** (H 0.015, EDU·SM 0.025): `base_joint` 는 0.1 m 인데 바퀴 반지름이 H 0.085, EDU·SM 0.075 라 메쉬가 떠 보였다.
    base_joint 를 바꾸면 base_link 기준 센서 높이(3D 라이다 높이 필터 등)가 같이 바뀌어 TF 는 그대로 두고 메쉬 origin 만 내렸다. 그래서 base_link·바퀴 프레임은 실제 바퀴축보다 그만큼 높다.
    센서 높이를 바닥에서 실측하면 base_joint 를 바퀴 반지름으로 고치고 floor_drop 을 0, 센서 joint z 를 실측값에 맞춘다.
