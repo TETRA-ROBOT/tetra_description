@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" width="960" height="360" role="img" aria-label="TETRA-M 의 TF 트리: map 에서 odom, base_footprint, base_link 로 이어지고 base_link 아래에 라이다, IMU, 카메라, 바퀴, 초음파 프레임이 붙는다">
+  <style>
+    text { font-family: -apple-system, 'Segoe UI', 'Noto Sans KR', 'Malgun Gothic', sans-serif; }
+    .bg { fill: #F7F9FA; }
+    .node { fill: #FFFFFF; stroke: #CFD8DC; stroke-width: 1.5; }
+    .key { fill: #FFFFFF; stroke: #E53935; stroke-width: 2; }
+    .nm { fill: #263238; font-size: 13px; font-weight: 700; font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', monospace; }
+    .ds { fill: #546E7A; font-size: 12px; }
+    .lbl { fill: #607D8B; font-size: 12px; }
+    .head { fill: #263238; font-size: 16px; font-weight: 700; }
+    .e { stroke: #B0BEC5; stroke-width: 1.5; fill: none; }
+    .eamcl { stroke: #00897B; stroke-width: 2.5; fill: none; }
+    .eekf { stroke: #E53935; stroke-width: 2.5; fill: none; }
+    .eurdf { stroke: #546E7A; stroke-width: 2.5; fill: none; }
+    .t1 { fill: #00897B; } .t2 { fill: #E53935; } .t3 { fill: #546E7A; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #161B22; }
+      .node, .key { fill: #0D1117; }
+      .node { stroke: #30363D; }
+      .key { stroke: #EF5350; }
+      .nm, .head { fill: #E6EDF3; }
+      .ds, .lbl { fill: #9DA7B1; }
+      .e { stroke: #3D4651; }
+      .eamcl { stroke: #4DB6AC; } .eekf { stroke: #EF5350; } .eurdf { stroke: #9DA7B1; }
+      .t1 { fill: #4DB6AC; } .t2 { fill: #EF5350; } .t3 { fill: #9DA7B1; }
+    }
+    @media (prefers-reduced-motion: reduce) { .dot { display: none; } }
+  </style>
+  <rect class="bg" x="0" y="0" width="960" height="360" rx="16"/>
+  <text class="head" x="24" y="34">TF 트리 (TETRA-M 예)</text>
+  <rect class="key" x="24" y="170" width="110" height="40" rx="10"/><text class="nm" x="79.0" y="195" text-anchor="middle">map</text>
+  <rect class="key" x="184" y="170" width="110" height="40" rx="10"/><text class="nm" x="239.0" y="195" text-anchor="middle">odom</text>
+  <rect class="key" x="344" y="170" width="150" height="40" rx="10"/><text class="nm" x="419.0" y="195" text-anchor="middle">base_footprint</text>
+  <rect class="key" x="544" y="170" width="120" height="40" rx="10"/><text class="nm" x="604.0" y="195" text-anchor="middle">base_link</text>
+  <path id="ch0" class="eamcl" d="M134 190 H182"/><polygon class="t1" points="176,185 184,190 176,195"/>
+  <text class="lbl" x="159.0" y="230" text-anchor="middle">AMCL (주행)</text><text class="lbl" x="159.0" y="246" text-anchor="middle">SLAM (매핑)</text>
+  <path id="ch1" class="eekf" d="M294 190 H342"/><polygon class="t2" points="336,185 344,190 336,195"/>
+  <text class="lbl" x="319.0" y="230" text-anchor="middle">EKF</text><text class="lbl" x="319.0" y="246" text-anchor="middle">ekf_filter_node</text>
+  <path id="ch2" class="eurdf" d="M494 190 H542"/><polygon class="t3" points="536,185 544,190 536,195"/>
+  <text class="lbl" x="519.0" y="230" text-anchor="middle">URDF</text><text class="lbl" x="519.0" y="246" text-anchor="middle">z 0.1005 m</text>
+  <path class="e" d="M664 190 C682 190 682 52 696 52"/>
+  <rect class="node" x="696" y="39" width="244" height="26" rx="7"/><text class="nm" x="706" y="56" style="font-size:11.5px">laser</text><text class="ds" x="932" y="56" text-anchor="end">앞 SICK TiM571</text>
+  <path class="e" d="M664 190 C682 190 682 85 696 85"/>
+  <rect class="node" x="696" y="72" width="244" height="26" rx="7"/><text class="nm" x="706" y="89" style="font-size:11.5px">laser_link2</text><text class="ds" x="932" y="89" text-anchor="end">뒤 Cyglidar D2</text>
+  <path class="e" d="M664 190 C682 190 682 118 696 118"/>
+  <rect class="node" x="696" y="105" width="244" height="26" rx="7"/><text class="nm" x="706" y="122" style="font-size:11.5px">imu_link</text><text class="ds" x="932" y="122" text-anchor="end">iAHRS IMU</text>
+  <path class="e" d="M664 190 C682 190 682 151 696 151"/>
+  <rect class="node" x="696" y="138" width="244" height="26" rx="7"/><text class="nm" x="706" y="155" style="font-size:11.5px">camera</text><text class="ds" x="932" y="155" text-anchor="end">후면 usb_cam</text>
+  <path class="e" d="M664 190 C682 190 682 184 696 184"/>
+  <rect class="node" x="696" y="171" width="244" height="26" rx="7"/><text class="nm" x="706" y="188" style="font-size:11.5px">camera1_link</text><text class="ds" x="932" y="188" text-anchor="end">RealSense</text>
+  <path class="e" d="M664 190 C682 190 682 217 696 217"/>
+  <rect class="node" x="696" y="204" width="244" height="26" rx="7"/><text class="nm" x="706" y="221" style="font-size:11.5px">front_bumper</text><text class="ds" x="932" y="221" text-anchor="end">앞 범퍼</text>
+  <path class="e" d="M664 190 C682 190 682 250 696 250"/>
+  <rect class="node" x="696" y="237" width="244" height="26" rx="7"/><text class="nm" x="706" y="254" style="font-size:11.5px">base_l/r_wheel_link</text><text class="ds" x="932" y="254" text-anchor="end">바퀴</text>
+  <path class="e" d="M664 190 C682 190 682 283 696 283"/>
+  <rect class="node" x="696" y="270" width="244" height="26" rx="7"/><text class="nm" x="706" y="287" style="font-size:11.5px">rear_caster_rotate</text><text class="ds" x="932" y="287" text-anchor="end">뒤 캐스터</text>
+  <path class="e" d="M664 190 C682 190 682 316 696 316"/>
+  <rect class="node" x="696" y="303" width="244" height="26" rx="7"/><text class="nm" x="706" y="320" style="font-size:11.5px">sonar_DL/RL/RR/DR</text><text class="ds" x="932" y="320" text-anchor="end">초음파 *</text>
+  <text class="lbl" x="24" y="290">발행하는 노드</text>
+  <rect class="t1" x="24" y="302" width="18" height="4"/><text class="lbl" x="48" y="308">map→odom: AMCL 또는 SLAM</text>
+  <rect class="t2" x="250" y="302" width="18" height="4"/><text class="lbl" x="274" y="308">odom→base_footprint: EKF (50 Hz)</text>
+  <rect class="t3" x="24" y="324" width="18" height="4"/><text class="lbl" x="48" y="330">나머지: robot_state_publisher (URDF, 고정 TF)</text>
+  <text class="lbl" x="696" y="346">* 구형 M 만 (xacro 인자 m_rear_sonar:=true)</text>
+  <g class="dot"><circle class="t1" r="5"><animateMotion dur="6s" repeatCount="indefinite" keyPoints="0;1;1" keyTimes="0;0.3;1" calcMode="linear"><mpath href="#ch0"/></animateMotion></circle>
+  <circle class="t2" r="5"><animateMotion dur="2s" repeatCount="indefinite"><mpath href="#ch1"/></animateMotion></circle></g>
+</svg>
